@@ -20,15 +20,21 @@ export default function API({ date }) {
                 setExplanation(data.explanation)
             }
         )
-    },[])
-
+    },[date])
+    console.log(image)
 
   return (
     <div>
         <h1>Astronomical Picture of the Day</h1>
         <h2>{title}</h2>
         <h3>This Image corresponds to the date {date}</h3>
-        <img src={image} alt="" />
+        
+        {(image.indexOf("youtube") > -1) 
+            ?
+            <iframe width="420" height="315" src={image}></iframe>   
+            : 
+            <img src={image} alt={title} /> 
+        }
         <p>{copyright}</p>
         <p>{explanation}</p>
     </div>
