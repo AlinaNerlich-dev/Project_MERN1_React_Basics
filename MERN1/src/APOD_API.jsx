@@ -4,24 +4,26 @@ import { useState, useEffect } from "react";
 
 export default function API({ date }) {
     const NASA_url = "https://api.nasa.gov/";
-    const API_KEY = "HPfkh8ujwPSQoQ3cGbUDy40f0prRO6ztf4Yih05l";
+    const API_KEY = "Q13qOhqlmIwXBrv56PROSrbeDYdw7D4A0OFRLKic";
     const [title, setTitle] = useState("");
     const [image, setImage] = useState("");
     const [copyright, setCopyright] = useState("");
     const [explanation, setExplanation] = useState("");
 
     useEffect(() => {
-         fetch(`${NASA_url}planetary/apod?date=${date}&api_key=${API_KEY}`)
-        .then((response) => response.json())
-        .then((data) => 
-            {   setTitle(data.title), 
-                setImage(data.url),
-                setCopyright(data.copyright)
-                setExplanation(data.explanation)
-            }
-        )
+        async function fetchAPODAPI(){
+            await fetch(`${NASA_url}planetary/apod?date=${date}&api_key=${API_KEY}`)
+            .then((response) => response.json())
+            .then((data) => 
+                {   setTitle(data.title), 
+                    setImage(data.url),
+                    setCopyright(data.copyright)
+                    setExplanation(data.explanation)
+                }
+            )
+        }
+       fetchAPODAPI();
     },[date])
-    console.log(image)
 
   return (
     <div>
