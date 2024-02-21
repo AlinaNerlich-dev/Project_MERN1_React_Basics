@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
-import APOD_API from "./APOD_API";
-import MARS_ROVER_API from "./MARS_ROVER_API";
+import APOD_API from "./components/APOD_API";
+import MARS_ROVER_API from "./components/MARS_ROVER_API";
 
 function App() {
   const today = new Date(Date.now()).toISOString().slice(0, 10);

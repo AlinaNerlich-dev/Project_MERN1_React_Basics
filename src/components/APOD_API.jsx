@@ -33,7 +33,7 @@ export default function API({ date }) {
       {image.indexOf("youtube") > -1 ? (
         <iframe width="420" height="315" src={image}></iframe>
       ) : (
-        <img src={image} alt={title} />
+        <img src={image} alt={title} width="500px" height="350px"/>
       )}
       <p>{copyright}</p>
       <p>{explanation}</p>

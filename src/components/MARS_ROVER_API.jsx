@@ -34,7 +34,7 @@ export default function MARS_ROVER_API({ date }) {
           {image.indexOf("youtube") > -1 ? (
             <iframe width="420" height="315" src={image}></iframe>
           ) : (
-            <img src={image} />
+            <img src={image} width="500px" height="350px"/>
           )}
           <p>Rover: {rover}</p>
         </div>
