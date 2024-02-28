@@ -21,8 +21,19 @@ label{
 input{
   margin-bottom: 2rem;
 }
+img{
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1/2;
+}
 #user-input-wrapper{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  #user-input-wrapper {
+    flex-direction: column;
+  }
 }
