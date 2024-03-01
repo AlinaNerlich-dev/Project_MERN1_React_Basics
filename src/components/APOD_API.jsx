@@ -1,22 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { callAPI } from "./functions";
 
-export default function API({ date, apiCall, data }) {
+export default function API({ date }) {
   const NASA_url = "https://api.nasa.gov/";
   const API_KEY = "Q13qOhqlmIwXBrv56PROSrbeDYdw7D4A0OFRLKic";
 
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setTimeout(()=>{
-      apiCall(NASA_url, API_KEY);
+    setLoading(true);
+    setTimeout(async ()=>{
+      const response = await callAPI(NASA_url, API_KEY, date);
+      setData(response);
+      console.log(response)
+      setLoading(false);
     }, 5000)
-
   }, [date]);
 
   return (
     <>
-
+    {loading && <div>Loading...</div>}
     {data ? (
       <div>
       <h1>Astronomical Picture of the Day</h1>
