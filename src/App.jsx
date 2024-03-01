@@ -7,13 +7,28 @@ function App() {
   const today = new Date(Date.now()).toISOString().slice(0, 10);
   const [date, setDate] = useState(today);
   const [selectedAPI, setSelectedAPI] = useState("APOD");
+  const [data, setData] = useState();
+  const [loading, setLoading]=useState(false);
 
   function handleDateInput(event) {
     setDate(event.target.value.toLocaleString());
   }
 
+  async function callAPI(URL, API_KEY){
+    setLoading(true);
+    await fetch(`${URL}planetary/apod?date=${date}&api_key=${API_KEY}`)
+    .then((response) => response.json())
+    .then((data) => {
+     setData(data);
+     setLoading(false);
+    });
+
+  }
+
+
   return (
     <>
+
       <div id="user-input-wrapper">
         <div id="date">
           <h4>Choose a date you want to look up...</h4>
@@ -33,11 +48,13 @@ function App() {
           </select>
         </div>
       </div>
-      {selectedAPI == "APOD" ? (
-        <APOD_API date={date} />
+      {loading ? (<h2>Loading</h2>) : (selectedAPI == "APOD" ? (
+        <APOD_API date={date} apiCall={callAPI} data={data}/>
       ) : (
-        <MARS_ROVER_API date={date} />
-      )}
+        <MARS_ROVER_API date={date} apiCall={callAPI} data={data}/>
+      ))}
+      
+     
     </>
   );
 }
