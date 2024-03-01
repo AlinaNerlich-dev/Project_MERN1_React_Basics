@@ -1,28 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-export default function API({ date }) {
+export default function API({ date, apiCall, data }) {
   const NASA_url = "https://api.nasa.gov/";
   const API_KEY = "Q13qOhqlmIwXBrv56PROSrbeDYdw7D4A0OFRLKic";
-  const [data, setData] = useState();
+
 
   useEffect(() => {
-    async function fetchAPODAPI() {
-      await fetch(`${NASA_url}planetary/apod?date=${date}&api_key=${API_KEY}`)
-        .then((response) => response.json())
-        .then((data) => {
-         setData(data)
-        });
-    }
     setTimeout(()=>{
-      fetchAPODAPI();
-    }, 2000)
+      apiCall(NASA_url, API_KEY);
+    }, 5000)
 
   }, [date]);
 
   return (
     <>
+
     {data ? (
       <div>
       <h1>Astronomical Picture of the Day</h1>
@@ -37,10 +31,7 @@ export default function API({ date }) {
       <p>{data?.copyright}</p>
       <p>{data?.explanation}</p>
     </div>
-    ) : (
-      <div>LOADING...</div>
-    )}
+    ) : (<h2>No pics today</h2>)}
     </>
-
   );
 }
