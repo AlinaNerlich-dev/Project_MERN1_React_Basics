@@ -22,7 +22,7 @@ export default function API({ date }) {
 
   return (
     <>
-    {loading && <div>Loading...</div>}
+    {loading && <h2>Loading...</h2>}
     {data && (
       <div>
       <h1>Astronomical Picture of the Day</h1>

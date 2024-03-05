@@ -12,19 +12,18 @@ export default function MARS_ROVER_API({ date }) {
 
   useEffect(() => {
     setLoading(true)
+    setData(null)
     setTimeout(async () => {
       const response = await callAPI(NASA_url, API_KEY, date);
-      console.log(response);
-      // store data.photos[0] in a seperate variable to avoid redudant code within JSX
-      setData(response);
+      setData(response.photos[0]);
       setLoading(false)
     }, 5000);
   }, [date]);
 
   return (
     <div>
-       {loading && <div>Loading...</div>}
-      {(data?.photos?.length > 0) ? (
+       {loading && <h2>Loading...</h2>}
+      {data && (
         <div>
           <h1>Mars Rover Picture of the Day</h1>
           <h2>CAMERA:{data.camera.full_name}</h2>
@@ -36,7 +35,8 @@ export default function MARS_ROVER_API({ date }) {
           )}
           <p>Rover: {data?.rover.name}</p>
         </div>
-      ) : (<h2>No pics today</h2>)}
+      )}
+       {(!loading && !data) && <h2>No pics today</h2>}
   
     </div>
   );
