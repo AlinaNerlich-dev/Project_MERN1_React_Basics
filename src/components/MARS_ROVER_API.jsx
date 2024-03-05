@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { callAPI } from "./functions"
 
 export default function MARS_ROVER_API({ date }) {
-  const NASA_url = "https://api.nasa.gov/mars-photos/api/v1/";
+  const NASA_url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=";
   const API_KEY = "Q13qOhqlmIwXBrv56PROSrbeDYdw7D4A0OFRLKic";
 
   const [data, setData] = useState();
@@ -24,7 +24,7 @@ export default function MARS_ROVER_API({ date }) {
   return (
     <div>
        {loading && <div>Loading...</div>}
-      {data?.photos?.length > 0 ? (
+      {(data?.photos?.length > 0) ? (
         <div>
           <h1>Mars Rover Picture of the Day</h1>
           <h2>CAMERA:{data.camera.full_name}</h2>
@@ -36,9 +36,8 @@ export default function MARS_ROVER_API({ date }) {
           )}
           <p>Rover: {data?.rover.name}</p>
         </div>
-      ) : (
-        <h2>No pics today</h2>
-      )}
+      ) : (<h2>No pics today</h2>)}
+  
     </div>
   );
 }
